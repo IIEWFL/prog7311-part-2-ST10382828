@@ -1,0 +1,131 @@
+@model Prog7311_Part2.Models.Farmer
+
+@{
+    ViewData["Title"] = "Farmer Dashboard";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card shadow-lg">
+                <div class="card-header bg-sky-blue text-white position-relative overflow-hidden">
+                    <div class="position-absolute end-0 top-0 translate-middle-y bg-white rounded-circle" style="width: 120px; height: 120px; opacity: 0.05;"></div>
+                    <div class="position-absolute start-50 top-100 translate-middle bg-white rounded-circle" style="width: 80px; height: 80px; opacity: 0.05;"></div>
+                    <div class="position-relative z-index-1">
+                        <h2 class="mb-0 fw-bold"><i class="fas fa-leaf me-2"></i>Welcome, @Model.Name</h2>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card h-100 border-0 bg-transparent">
+                                <div class="card-body">
+                                    <h5 class="text-sky-blue fw-bold mb-3"><i class="fas fa-info-circle me-2"></i>Farm Information</h5>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-light p-2 rounded-circle me-3">
+                                            <i class="fas fa-map-marker-alt text-sky-blue"></i>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">Location</small>
+                                            <strong>@Model.Location</strong>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-light p-2 rounded-circle me-3">
+                                            <i class="fas fa-calendar-alt text-sky-blue"></i>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">Since</small>
+                                            <strong>@Model.CreatedAt.ToString("MMMM dd, yyyy")</strong>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light p-2 rounded-circle me-3">
+                                            <i class="fas fa-phone text-sky-blue"></i>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">Contact</small>
+                                            <strong>@(string.IsNullOrEmpty(Model.PhoneNumber) ? "Not provided" : Model.PhoneNumber)</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card h-100 border-0 bg-transparent">
+                                <div class="card-body">
+                                    <h5 class="text-sky-blue fw-bold mb-3"><i class="fas fa-quote-left me-2"></i>Description</h5>
+                                    <p class="mb-0 lead fs-6">@(string.IsNullOrEmpty(Model.Description) ? "No description provided." : Model.Description)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-sky-blue text-white position-relative overflow-hidden">
+                    <div class="position-absolute end-0 top-50 translate-middle-y bg-white rounded-circle" style="width: 50px; height: 50px; opacity: 0.1;"></div>
+                    <h3 class="mb-0 fw-bold"><i class="fas fa-box me-2"></i>Product Management</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <div class="display-4 fw-bold text-sky-blue mb-2">@Model.Products.Count</div>
+                        <p class="text-muted">Products Listed</p>
+                    </div>
+                    <p class="mb-4">Add and manage your agricultural and green energy products. Keep your listings updated with accurate information.</p>
+                    <div class="d-grid gap-2">
+                        <a asp-action="AddProduct" class="btn btn-sky-blue mb-2">
+                            <i class="fas fa-plus-circle me-2"></i>Add New Product
+                        </a>
+                        <a asp-action="ViewProducts" class="btn btn-outline-sky-blue">
+                            <i class="fas fa-eye me-2"></i>View My Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-sky-blue text-white position-relative overflow-hidden">
+                    <div class="position-absolute end-0 top-50 translate-middle-y bg-white rounded-circle" style="width: 50px; height: 50px; opacity: 0.1;"></div>
+                    <h3 class="mb-0 fw-bold"><i class="fas fa-lightbulb me-2"></i>Resources</h3>
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">Access helpful resources for sustainable farming and green energy integration.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex align-items-center">
+                            <div class="me-3 bg-sky-blue text-white p-2 rounded">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <span>Sustainable Farming Techniques</span>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <div class="me-3 bg-sky-blue text-white p-2 rounded">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <span>Green Energy Solutions for Farms</span>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <div class="me-3 bg-sky-blue text-white p-2 rounded">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <span>Water Conservation Methods</span>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <div class="me-3 bg-sky-blue text-white p-2 rounded">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <span>Soil Health Maintenance</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,132 @@
+@model Prog7311_Part2.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-sky-blue text-white">
+                    <h2>Edit Product</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="FarmerId" />
+                        <input type="hidden" asp-for="CreatedAt" />
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Category" class="control-label"></label>
+                            <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<Prog7311_Part2.Models.ProductCategory>()"></select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="Price" class="control-label"></label>
+                            <div class="input-group">
+                                <span class="input-group-text">R</span>
+                                <input asp-for="Price" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="ProductionDate" class="control-label">Production Date</label>
+                            <input asp-for="ProductionDate" class="form-control" type="date" />
+                            <span asp-validation-for="ProductionDate" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="productImage" class="control-label">Product Image</label>
+                            <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" />
+                            <small class="form-text text-muted">Upload a new image file (jpg, png, gif). Maximum size 5MB.</small>
+                            
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <div class="mt-2">
+                                    <p>Current image:</p>
+                                    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-thumbnail" style="max-height: 150px" />
+                                </div>
+                            }
+                            <div class="preview-container"></div>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label asp-for="ImageUrl" class="control-label">Image URL (Optional)</label>
+                            <input asp-for="ImageUrl" class="form-control" />
+                            <small class="form-text text-muted">Alternatively, enter a URL to an online image. You can provide either a file upload or URL.</small>
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group d-flex justify-content-between">
+                            <a asp-action="ViewProducts" class="btn btn-outline-secondary">Back to Products</a>
+                            <button type="submit" class="btn btn-sky-blue">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            // Preview uploaded image
+            // Adapted from: dcode (2020) 'How to Save Images to Local/Session Storage - JavaScript Tutorial'. 20 July 2020.
+            // Available at: https://www.youtube.com/watch?v=8K2ihr3NC40
+            // (Accessed: 14 May 2025).
+            $("#productImage").change(function() {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var preview = $('<div class="mt-2"><p>New image preview:</p><img src="' + e.target.result + '" class="img-thumbnail" style="max-height: 200px" /></div>');
+                        $(".preview-container").html(preview);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            
+            // Handle validation between image URL and file upload
+            // Adapted from: Microsoft (2024) 'ASP.NET Core MVC Form Validation', 
+            // Microsoft Docs. 5 January 2024. Available at: https://docs.microsoft.com/en-us/aspnet/core/mvc/models/validation
+            // (Accessed: 14 May 2025).
+            $("#ImageUrl").on("input", function() {
+                // If URL is provided, disable validation on file input
+                if ($(this).val().trim().length > 0) {
+                    // Mark productImage as valid in jquery validation
+                    if ($('form').data('validator')) {
+                        $('form').data('validator').settings.ignore = "#productImage";
+                    }
+                } else {
+                    if ($('form').data('validator')) {
+                        $('form').data('validator').settings.ignore = "";
+                    }
+                }
+            });
+            
+            // Run once on page load to check initial value
+            if ($("#ImageUrl").val().trim().length > 0) {
+                if ($('form').data('validator')) {
+                    $('form').data('validator').settings.ignore = "#productImage";
+                }
+            }
+        });
+    </script>
+} 

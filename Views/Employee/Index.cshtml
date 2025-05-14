@@ -1,0 +1,155 @@
+@model IEnumerable<Prog7311_Part2.Models.Farmer>
+
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card shadow-lg">
+                <div class="card-header bg-sky-blue text-white d-flex justify-content-between align-items-center position-relative overflow-hidden">
+                    <div class="position-absolute end-0 top-0 translate-middle-y bg-white rounded-circle" style="width: 120px; height: 120px; opacity: 0.05;"></div>
+                    <div class="position-absolute start-50 top-100 translate-middle bg-white rounded-circle" style="width: 80px; height: 80px; opacity: 0.05;"></div>
+                    <div class="z-index-1">
+                        <h2 class="mb-0 fw-bold"><i class="fas fa-users-cog me-2"></i>Farmer Management</h2>
+                    </div>
+                    <a asp-action="AddFarmer" class="btn btn-light">
+                        <i class="fas fa-user-plus me-2"></i>Add New Farmer
+                    </a>
+                </div>
+                <div class="card-body">
+                    <p>Welcome to the employee dashboard. Here you can manage farmers and their products.</p>
+                    <div class="alert alert-info border-sky-blue d-flex align-items-center">
+                        <i class="fas fa-info-circle fa-2x me-3 text-sky-blue"></i>
+                        <div>
+                            There are currently <strong class="text-sky-blue">@Model.Count()</strong> registered farmers in the system.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-sky-blue text-white position-relative overflow-hidden">
+                    <div class="position-absolute end-0 top-50 translate-middle-y bg-white rounded-circle" style="width: 50px; height: 50px; opacity: 0.1;"></div>
+                    <h3 class="mb-0 fw-bold"><i class="fas fa-tractor me-2"></i>Registered Farmers</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th><i class="fas fa-farm me-2"></i>Farm Name</th>
+                                        <th><i class="fas fa-map-marker-alt me-2"></i>Location</th>
+                                        <th><i class="fas fa-phone me-2"></i>Contact</th>
+                                        <th><i class="fas fa-calendar-alt me-2"></i>Registered Date</th>
+                                        <th><i class="fas fa-box me-2"></i>Products</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var farmer in Model)
+                                    {
+                                        <tr>
+                                            <td class="fw-bold">@farmer.Name</td>
+                                            <td>@farmer.Location</td>
+                                            <td>@(string.IsNullOrEmpty(farmer.PhoneNumber) ? "N/A" : farmer.PhoneNumber)</td>
+                                            <td>@farmer.CreatedAt.ToShortDateString()</td>
+                                            <td><span class="badge bg-sky-blue text-white">@farmer.Products.Count</span></td>
+                                            <td>
+                                                <a asp-action="ViewFarmerProducts" asp-route-id="@farmer.Id" class="btn btn-sm btn-sky-blue">
+                                                    <i class="fas fa-eye me-1"></i>View Products
+                                                </a>
+                                                <a asp-action="DeleteFarmer" asp-route-id="@farmer.Id" class="btn btn-sm btn-danger ms-1">
+                                                    <i class="fas fa-trash-alt me-1"></i>Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning border-sky-blue d-flex align-items-center">
+                            <i class="fas fa-exclamation-triangle fa-2x me-3 text-warning"></i>
+                            <div>
+                                <p class="mb-2">No farmers registered yet.</p>
+                                <a asp-action="AddFarmer" class="btn btn-sm btn-sky-blue">
+                                    <i class="fas fa-user-plus me-2"></i>Add your first farmer
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-sky-blue text-white position-relative overflow-hidden">
+                    <div class="position-absolute end-0 top-50 translate-middle-y bg-white rounded-circle" style="width: 50px; height: 50px; opacity: 0.1;"></div>
+                    <h3 class="mb-0 fw-bold"><i class="fas fa-filter me-2"></i>Product Filters</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p class="mb-0">Filter and search products across all farmers based on various criteria such as production date, category, and farmer.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <a asp-action="FilterProducts" class="btn btn-sky-blue">
+                                <i class="fas fa-sliders-h me-2"></i>Advanced Filtering
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-calendar-day fa-2x text-sky-blue mb-3"></i>
+                                        <h5 class="mb-0 fs-6">Filter by Date</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-tag fa-2x text-sky-blue mb-3"></i>
+                                        <h5 class="mb-0 fs-6">Filter by Category</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-user-circle fa-2x text-sky-blue mb-3"></i>
+                                        <h5 class="mb-0 fs-6">Filter by Farmer</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 bg-light h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-search fa-2x text-sky-blue mb-3"></i>
+                                        <h5 class="mb-0 fs-6">Custom Search</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

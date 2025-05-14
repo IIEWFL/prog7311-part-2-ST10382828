@@ -1,0 +1,74 @@
+@model Prog7311_Part2.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-sky-blue text-white">
+                    <h2>Product Details</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <h3 class="text-sky-blue">@Model.Name</h3>
+                                <span class="badge bg-sky-blue text-white mb-2">@Model.Category</span>
+                                <p class="text-muted small">Added on @Model.CreatedAt.ToString("MMM dd, yyyy")</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>Description</h5>
+                                <p>@(string.IsNullOrEmpty(Model.Description) ? "No description provided." : Model.Description)</p>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <h5>Price</h5>
+                                    <p class="text-success fw-bold">R @Model.Price.ToString("F2")</p>
+                                </div>
+                                <div class="col-6">
+                                    <h5>Production Date</h5>
+                                    <p>@Model.ProductionDate.ToString("MMM dd, yyyy")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center p-3 bg-light rounded">
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded" style="max-height: 300px; object-fit: contain;" />
+                                }
+                                else
+                                {
+                                    <div class="p-5 bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center" style="height: 300px;">
+                                        <p class="text-muted">No image available</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr />
+                    
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="ViewProducts" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Products
+                        </a>
+                        <div>
+                            <a asp-action="EditProduct" asp-route-id="@Model.Id" class="btn btn-sky-blue me-2">
+                                <i class="fas fa-edit me-1"></i>Edit
+                            </a>
+                            <a asp-action="DeleteProduct" asp-route-id="@Model.Id" class="btn btn-danger">
+                                <i class="fas fa-trash-alt me-1"></i>Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

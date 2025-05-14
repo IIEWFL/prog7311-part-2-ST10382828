@@ -1,0 +1,176 @@
+﻿@{
+    ViewData["Title"] = "Agri-Energy Connect";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 text-sky-blue fw-bold">Welcome to Agri-Energy Connect</h1>
+    <p class="lead">Bridging the gap between agriculture and green energy solutions</p>
+    <div class="mt-4 mb-5">
+        <div class="d-inline-block position-relative">
+            <div class="position-absolute top-0 start-0 translate-middle-y bg-sky-blue rounded-circle" style="width: 120px; height: 120px; opacity: 0.2; z-index: -1;"></div>
+            <div class="position-absolute top-100 end-0 translate-middle bg-sky-blue rounded-circle" style="width: 80px; height: 80px; opacity: 0.1; z-index: -1;"></div>
+            <img src="~/images/Logo.png" 
+                 class="img-fluid rounded-3 shadow-lg" style="max-height: 350px; object-fit: cover;" alt="Agri-Energy Connect Logo">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow">
+            <div class="card-header bg-sky-blue text-white">
+                <h5 class="card-title mb-0 fw-bold">For Farmers</h5>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <div class="mb-4 text-center">
+                    <i class="fas fa-tractor fa-3x text-sky-blue mb-3"></i>
+                </div>
+                <p class="card-text flex-grow-1">
+                    Join our platform to showcase your sustainable farming products and connect 
+                    with green energy providers. Share your success stories and learn from others.
+                </p>
+                <a asp-controller="Account" asp-action="Register" class="btn btn-sky-blue mt-auto w-100">
+                    <i class="fas fa-user-plus me-2"></i> Register as a Farmer
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow">
+            <div class="card-header bg-sky-blue text-white">
+                <h5 class="card-title mb-0 fw-bold">For Employees</h5>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <div class="mb-4 text-center">
+                    <i class="fas fa-users-cog fa-3x text-sky-blue mb-3"></i>
+                </div>
+                <p class="card-text flex-grow-1">
+                    Manage farmer profiles, view all products, and help connect farmers with the 
+                    resources they need. Filter products based on category and production date.
+                </p>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-sky-blue mt-auto w-100">
+                    <i class="fas fa-sign-in-alt me-2"></i> Login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow">
+            <div class="card-header bg-light border-sky-blue">
+                <h5 class="card-title mb-0 text-sky-blue fw-bold">Sustainable Farming Hub</h5>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <div class="mb-3 text-center">
+                    <i class="fas fa-seedling fa-2x text-sky-blue mb-3"></i>
+                </div>
+                <p class="card-text">
+                    Access resources on best practices in sustainable farming, including organic farming techniques, 
+                    water conservation methods, and soil health maintenance.
+                </p>
+                <div class="mt-auto text-center">
+                    <a href="#" class="btn btn-sm btn-outline-sky-blue">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow">
+            <div class="card-header bg-light border-sky-blue">
+                <h5 class="card-title mb-0 text-sky-blue fw-bold">Green Energy Marketplace</h5>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <div class="mb-3 text-center">
+                    <i class="fas fa-solar-panel fa-2x text-sky-blue mb-3"></i>
+                </div>
+                <p class="card-text">
+                    Explore green energy solutions tailored to agricultural needs, such as solar-powered irrigation 
+                    systems, wind turbines for farms, and biogas energy solutions.
+                </p>
+                <div class="mt-auto text-center">
+                    <a href="#" class="btn btn-sm btn-outline-sky-blue">Browse Solutions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow">
+            <div class="card-header bg-light border-sky-blue">
+                <h5 class="card-title mb-0 text-sky-blue fw-bold">Educational Resources</h5>
+            </div>
+            <div class="card-body d-flex flex-column">
+                <div class="mb-3 text-center">
+                    <i class="fas fa-graduation-cap fa-2x text-sky-blue mb-3"></i>
+                </div>
+                <p class="card-text">
+                    Access online courses, webinars, and workshops on integrating green energy technologies 
+                    in agriculture and the benefits of adopting renewable energy sources on farms.
+                </p>
+                <div class="mt-auto text-center">
+                    <a href="#" class="btn btn-sm btn-outline-sky-blue">Explore Courses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Us Section -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header bg-sky-blue text-white">
+                <h3 class="mb-0 fw-bold">Contact Us</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="text-sky-blue">Get in Touch</h4>
+                        <p>Have questions about our platform or services? Need assistance with your account? Our team is here to help you with any inquiries.</p>
+                        
+                        <div class="mt-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-envelope text-sky-blue fa-lg me-3"></i>
+                                <span>support@agrienergyconnect.com</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-phone text-sky-blue fa-lg me-3"></i>
+                                <span>+27 12 345 6789</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-sky-blue fa-lg me-3"></i>
+                                <span>123 Green Street, Pretoria, South Africa</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-sky-blue">Business Hours</h4>
+                        <p>Our support team is available during the following hours:</p>
+                        
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Monday - Friday:</span>
+                                <span class="text-muted">8:00 AM - 5:00 PM</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Saturday:</span>
+                                <span class="text-muted">9:00 AM - 1:00 PM</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Sunday & Public Holidays:</span>
+                                <span class="text-muted">Closed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="#" class="btn btn-sky-blue">
+                                <i class="fas fa-comments me-2"></i>Send Message
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
