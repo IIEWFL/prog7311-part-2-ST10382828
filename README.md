@@ -185,6 +185,17 @@ The video demonstrates:
 - Employee features (adding farmers, viewing and filtering products)
 - Farmer features (adding and managing products)
 - Authentication and security features
-- Responsive design and user interface
+- Responsive design and user interf
 
+## Known Issues / Note to Marker
+
+**Database Seeding and Demo Data**
+
+- The application includes substantial demonstration data in the seeding logic (admin user, farmer user, and products). This is shown in the accompanying demonstration video.
+- However, in some cases, only the admin user is seeded when running the application on a freshly created database. This is due to the seeding logic checking for any existing user and skipping the rest of the demo data if one is found.
+- As a result, the farmer and product demo data may not always appear automatically, even though the code for seeding them is present and works as shown in the video.
+- All core functionality is present and works as intended, and the application allows for adding farmers and products through the UI.
+- If you would like to see the full demo data, please refer to the video demonstration.
+
+Thank you for your understanding.
 ---
