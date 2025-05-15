@@ -10,6 +10,7 @@ The Agri-Energy Connect platform is a web application designed to bridge the gap
 5. [Design and Implementation](#design-and-implementation)
 6. [Troubleshooting](#troubleshooting)
 7. [Video Demonstration](#video-demonstration)
+8. [Known Issues / Note to Marker](#known-issues--note-to-marker)
 
 ## Prerequisites
 
