@@ -8,6 +8,15 @@ namespace Prog7311_Part2.Models
     // a centralized data access layer through DbSet properties.
     // This aligns with the Repository pattern mentioned in the report
     // by abstracting data access operations from the rest of the application.
+    
+    /// <summary>
+    /// Application database context for Entity Framework Core
+    /// Implements data access layer with relationship configuration and seeding
+    /// 
+    /// DbContext implementation pattern based on: Microsoft Corporation (2024) 'DbContext Lifetime, Configuration, and Initialization',
+    ///12 November 2024.[online] Available at: https://docs.microsoft.com/en-us/ef/core/dbcontext-configuration/
+    /// (Accessed: 12 May 2025).
+    /// </summary>
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -35,7 +44,10 @@ namespace Prog7311_Part2.Models
                 .WithMany(f => f.Products)
                 .HasForeignKey(p => p.FarmerId);
 
-            // Seed initial admin/employee user with fixed date
+            // Initial data seeding for bootstrap admin user
+            // Data seeding approach adapted from: Microsoft Corporation (2025) 'Data Seeding in Entity Framework Core',
+            //.15 January 2025.[online] Available at: https://docs.microsoft.com/en-us/ef/core/modeling/data-seeding
+            // (Accessed: 13 May 2025).
             modelBuilder.Entity<User>().HasData(
                 new User 
                 { 

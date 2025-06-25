@@ -1,3 +1,5 @@
+
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +34,9 @@ namespace Prog7311_Part2.Controllers
             {
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
                 
+                // Password verification using BCrypt
+                // BCrypt implementation based on: BCrypt.NeT(2024) 'BCrypt.Net',
+                // GitHub Repository.[online] Available at: https://github.com/BcryptNet/bcrypt.net (Accessed: 12 May 2025).
                 if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 {
                     var claims = new List<Claim>
@@ -52,6 +57,7 @@ namespace Prog7311_Part2.Controllers
                         new ClaimsPrincipal(claimsIdentity),
                         authProperties);
 
+                    // Role-based redirection logic
                     if (user.Role == UserRole.Farmer)
                     {
                         return RedirectToAction("Index", "Farmer");
@@ -128,7 +134,10 @@ namespace Prog7311_Part2.Controllers
                 _context.Farmers.Add(farmer);
                 await _context.SaveChangesAsync();
 
-                // Automatically log in the user
+                // Automatic authentication after registration
+                // Auto-login pattern adapted from: Microsoft Corporation (2024) 'Cookie authentication in ASP.NET Core',
+                // Microsoft Docs, 25 April 2024.[online] Available at: https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie
+                // (Accessed: 12 May 2025).
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.Username),

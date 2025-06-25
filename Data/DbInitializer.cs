@@ -1,3 +1,5 @@
+
+
 using Microsoft.EntityFrameworkCore;
 using Prog7311_Part2.Models;
 
@@ -8,20 +10,26 @@ namespace Prog7311_Part2.Data
     /// </summary>
  
     /// Seeding approach adapted from: Microsoft (2025) 'Data Seeding',
-    /// Microsoft Docs. 15 January 2025. Available at: https://docs.microsoft.com/en-us/ef/core/modeling/data-seeding
+    /// Microsoft Docs. 15 January 2025.[online] Available at: https://docs.microsoft.com/en-us/ef/core/modeling/data-seeding
     /// (Accessed: 13 May 2025).
  
     public static class DbInitializer
     {
         public static void Initialize(AppDbContext context)
         {
-            // Create the database if it doesn't exist and apply migrations
+            // Database creation and migration strategy
+            // Migration execution pattern based on: Microsoft Corporation (2023) 'Entity Framework Core migrations',
+            // Microsoft Docs, 12 January 2023.[online] Available at: https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/
+            // (Accessed: 12 May 2025).
             context.Database.Migrate();
 
-            // Check if we already have users
-            if (context.Users.Any())
+            // Modified seeding logic to ensure comprehensive data population
+            // regardless of existing admin user (Fix for Part 2 "only seeds admin" issue)
+            
+            // Check if we already have comprehensive seeding (check for products instead of just users)
+            if (context.Products.Any())
             {
-                return;  // DB has been seeded
+                return;  // Comprehensive seeding has been completed
             }
 
             // Define image paths for products
@@ -39,34 +47,47 @@ namespace Prog7311_Part2.Data
                 { "Organic Wheat", "/images/seed_products/wheat.jpg" }
             };
 
-            // Seed employee user
-            var employeeUser = new User
-            {
-                Username = "admin",
-                Email = "admin@agrienergy.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
-                Role = UserRole.Employee,
-                CreatedAt = DateTime.Now
-            };
-
-            context.Users.Add(employeeUser);
-            context.SaveChanges();
-
-            // Seed employee profile
-            var employee = new Employee
-            {
-                Name = "Admin User",
-                Department = "Management",
-                EmployeeNumber = "EMP001",
-                PhoneNumber = "011-555-0000",
-                UserId = employeeUser.Id,
-                CreatedAt = DateTime.Now
-            };
+            // Seed employee user (only if not exists)
+            var existingEmployeeUser = context.Users.FirstOrDefault(u => u.Username == "admin");
+            User employeeUser;
             
-            context.Employees.Add(employee);
-            context.SaveChanges();
+            if (existingEmployeeUser == null)
+            {
+                employeeUser = new User
+                {
+                    Username = "admin",
+                    Email = "admin@agrienergy.com",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
+                    Role = UserRole.Employee,
+                    CreatedAt = DateTime.Now
+                };
 
-            // Seed farmer user
+                context.Users.Add(employeeUser);
+                context.SaveChanges();
+            }
+            else
+            {
+                employeeUser = existingEmployeeUser;
+            }
+
+            // Seed employee profile (only if not exists)
+            if (!context.Employees.Any(e => e.UserId == employeeUser.Id))
+            {
+                var employee = new Employee
+                {
+                    Name = "Admin User",
+                    Department = "Management",
+                    EmployeeNumber = "EMP001",
+                    PhoneNumber = "011-555-0000",
+                    UserId = employeeUser.Id,
+                    CreatedAt = DateTime.Now
+                };
+                
+                context.Employees.Add(employee);
+                context.SaveChanges();
+            }
+
+            // Seed farmer user (always create for comprehensive testing)
             var farmerUser = new User
             {
                 Username = "farmer1",
@@ -93,10 +114,11 @@ namespace Prog7311_Part2.Data
             context.Farmers.Add(farmer);
             context.SaveChanges();
 
-            // Seed products using local image files
+            // Comprehensive product seeding across all categories
+            // Product initialization pattern with complex object relationships
             var products = new List<Product>
             {
-                // Vegetables
+                // Vegetable products with realistic pricing and dates
                 new Product {
                     Name = "Organic Carrots",
                     Category = ProductCategory.Vegetable,
@@ -118,7 +140,7 @@ namespace Prog7311_Part2.Data
                     ImageUrl = productImageMap["Fresh Lettuce"]
                 },
                 
-                // Fruits
+                // Fruit products with seasonal pricing
                 new Product {
                     Name = "Fresh Strawberries",
                     Category = ProductCategory.Fruit,
@@ -140,7 +162,7 @@ namespace Prog7311_Part2.Data
                     ImageUrl = productImageMap["Organic Apples"]
                 },
                 
-                // Green Energy
+                // Green Energy products with high-value pricing
                 new Product {
                     Name = "Solar Panel System",
                     Category = ProductCategory.GreenEnergy,
@@ -162,7 +184,7 @@ namespace Prog7311_Part2.Data
                     ImageUrl = productImageMap["Wind Turbine Kit"]
                 },
                 
-                // Livestock
+                // Livestock products with ethical sourcing
                 new Product {
                     Name = "Free-Range Chickens",
                     Category = ProductCategory.Livestock,
@@ -174,7 +196,7 @@ namespace Prog7311_Part2.Data
                     ImageUrl = productImageMap["Free-Range Chickens"]
                 },
                 
-                // Dairy
+                // Dairy products with short shelf life considerations
                 new Product {
                     Name = "Homemade Yogurt",
                     Category = ProductCategory.Dairy,

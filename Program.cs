@@ -32,7 +32,9 @@ if (args.Length > 0 && args[0] == "seed-data")
     return;
 }
 
-// Configure logging
+// Logging configuration adapted from: Microsoft Corporation (2024) 'Logging in .NET Core and ASP.NET Core',
+// Microsoft Docs, 18 September 2024.[online] Available at: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging
+// (Accessed: 12 May 2025).
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
@@ -46,7 +48,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add FileUploadService
+// Dependency injection for custom services
+// Pattern adapted from: Microsoft Corporation (2024) 'Dependency injection in ASP.NET Core',
+// Microsoft Docs, 18 September 2024.[online] Available at: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection
+// (Accessed: 12 May 2025).
 builder.Services.AddScoped<Prog7311_Part2.Services.FileUploadService>();
 
 // Observer Pattern Implementation:
@@ -55,10 +60,10 @@ builder.Services.AddScoped<Prog7311_Part2.Services.FileUploadService>();
 // trigger handlers and callbacks that respond to these events, similar to
 // how observers respond to subjects in the Observer pattern.
 
-// Add authentication
-// Adapted from: Microsoft (2025) 'ASP.NET Core Security topic',
-// Microsoft Docs.29 January 2025. Available at: https://docs.microsoft.com/en-us/aspnet/core/security/
-// (Accessed: 13 May 2025).
+// Cookie-based authentication configuration
+// Implementation adapted from: Microsoft Corporation (2024) 'Cookie authentication in ASP.NET Core',
+// Microsoft Docs, 25 April 2024.[online] Available at: https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie
+// (Accessed: 12 May 2025).
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -82,7 +87,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 else

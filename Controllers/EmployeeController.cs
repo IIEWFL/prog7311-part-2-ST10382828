@@ -109,7 +109,7 @@ namespace Prog7311_Part2.Controllers
             ViewBag.FarmerName = farmer.Name;
             ViewBag.FarmerId = farmer.Id;
 
-            int pageSize = 5; // Number of products per page
+            const int pageSize = 5; // Number of products per page
             var products = _context.Products
                 .Where(p => p.FarmerId == id)
                 .OrderByDescending(p => p.CreatedAt);
@@ -165,7 +165,7 @@ namespace Prog7311_Part2.Controllers
             ViewBag.SelectedCategory = category;
 
             // Paginate the results
-            int pageSize = 10; // Number of products per page
+            const int pageSize = 10; // Number of products per page
             var paginatedResults = await PaginatedList<Product>.CreateAsync(query, pageNumber ?? 1, pageSize);
 
             return View("FilterResults", paginatedResults);

@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Prog7311_Part2.Models
@@ -11,9 +12,9 @@ namespace Prog7311_Part2.Models
     /// <summary>
     /// Generic pagination class for creating paginated lists from IQueryable sources
     
-    /// Adapted from: Microsoft (2024) 'Sorting, filtering, and paging with EF Core', Microsoft Docs.4 October 2024.
+    /// Adapted from: Microsoft (2024) 'Sorting, filtering, and paging with EF Core', Microsoft Docs.4 October 2024.[online]
     /// Available at: https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page
-    /// (Accessed: 13 May 2025).
+    /// (Accessed: 14 May 2025).
     public class PaginatedList<T> : List<T>
     {
         public int PageIndex { get; private set; }
@@ -29,6 +30,7 @@ namespace Prog7311_Part2.Models
             this.AddRange(items);
         }
 
+        // Navigation helper properties for UI pagination controls
         public bool HasPreviousPage => PageIndex > 1;
 
         public bool HasNextPage => PageIndex < TotalPages;

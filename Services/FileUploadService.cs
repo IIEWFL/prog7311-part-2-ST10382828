@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -23,7 +24,7 @@ namespace Prog7311_Part2.Services
         /// Uploads a product image and returns the relative URL path
         /// Implementation based on Microsoft's recommended file upload patterns
       
-        /// Adapted from: Microsoft (2024) 'File uploads in ASP.NET Core', Microsoft Docs.27 September 2024.
+        /// Adapted from: Microsoft (2024) 'File uploads in ASP.NET Core', Microsoft Docs.27 September 2024.[online]
         /// Available at: https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads
         /// (Accessed: 13 May 2025).
         public async Task<string> UploadProductImageAsync(IFormFile file)

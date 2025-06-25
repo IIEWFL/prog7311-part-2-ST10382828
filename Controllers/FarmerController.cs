@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -141,6 +142,8 @@ namespace Prog7311_Part2.Controllers
             }
         }
 
+        // Paginated product listing implementation
+        // Pagination integration pattern from our custom PaginatedList class
         public async Task<IActionResult> ViewProducts(int? pageNumber)
         {
             var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -158,7 +161,7 @@ namespace Prog7311_Part2.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            int pageSize = 5; // Number of products per page
+            const int pageSize = 5; // Number of products per page
             var products = _context.Products
                 .Where(p => p.FarmerId == farmer.Id)
                 .OrderByDescending(p => p.CreatedAt);
@@ -192,6 +195,7 @@ namespace Prog7311_Part2.Controllers
             return View(product);
         }
 
+        // Product update with file handling
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProduct(int id, Product product, IFormFile productImage)

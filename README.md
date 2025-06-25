@@ -10,7 +10,7 @@ The Agri-Energy Connect platform is a web application designed to bridge the gap
 5. [Design and Implementation](#design-and-implementation)
 6. [Troubleshooting](#troubleshooting)
 7. [Video Demonstration](#video-demonstration)
-8. [Known Issues / Note to Marker](#known-issues--note-to-marker)
+
 
 ## Prerequisites
 
@@ -188,15 +188,4 @@ The video demonstrates:
 - Authentication and security features
 - Responsive design and user interf
 
-## Known Issues / Note to Marker
-
-**Database Seeding and Demo Data**
-
-- The application includes substantial demonstration data in the seeding logic (admin user, farmer user, and products). This is shown in the accompanying demonstration video.
-- However, in some cases, only the admin user is seeded when running the application on a freshly created database. This is due to the seeding logic checking for any existing user and skipping the rest of the demo data if one is found.
-- As a result, the farmer and product demo data may not always appear automatically, even though the code for seeding them is present and works as shown in the video.
-- All core functionality is present and works as intended, and the application allows for adding farmers and products through the UI.
-- If you would like to see the full demo data, please refer to the video demonstration.
-
-Thank you for your understanding.
 ---
